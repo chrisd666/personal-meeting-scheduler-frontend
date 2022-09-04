@@ -1,6 +1,7 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import HomePage from "./pages/HomePage";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const theme = createTheme({
   typography: {
@@ -8,10 +9,14 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <HomePage />
+      <QueryClientProvider client={queryClient}>
+        <HomePage />
+      </QueryClientProvider>
     </ThemeProvider>
   );
 }

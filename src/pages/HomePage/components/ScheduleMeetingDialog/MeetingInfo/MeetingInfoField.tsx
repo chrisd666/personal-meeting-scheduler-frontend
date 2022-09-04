@@ -5,7 +5,7 @@ interface Props {
   text: string;
 }
 
-export default function MeetingInfo({ icon, text }: Props) {
+export default function MeetingInfoField({ icon, text }: Props) {
   return (
     <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
       {icon}
