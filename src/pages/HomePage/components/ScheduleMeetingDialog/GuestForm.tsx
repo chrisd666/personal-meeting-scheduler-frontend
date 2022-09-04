@@ -1,4 +1,3 @@
-import { Add } from "@mui/icons-material";
 import { Box, Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -63,13 +62,8 @@ export default function GuestForm({ addGuest }: Props) {
           flexDirection: "row-reverse",
         }}
       >
-        <Button
-          type="submit"
-          variant="outlined"
-          startIcon={<Add />}
-          size="small"
-        >
-          Add Guests
+        <Button type="submit" variant="outlined" size="small">
+          Add Guest
         </Button>
       </Box>
     </form>
