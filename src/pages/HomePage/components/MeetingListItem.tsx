@@ -3,8 +3,6 @@ import {
   ListItemText,
   AvatarGroup,
   Avatar,
-  Typography,
-  Box,
   Divider,
 } from "@mui/material";
 import dayjs from "dayjs";
@@ -29,43 +27,37 @@ interface Props {
 
 export default function MeetingListItem({ meeting }: Props) {
   const startedAt = dayjs(meeting.createdAt).format("h:mm a");
-  const endedAt = dayjs(meeting.endsAt).format("h:mm a, dddd, MMMM d, YYYY");
+  const endedAt = dayjs(meeting.endsAt).format("h:mm a, dddd, MMMM D, YYYY");
 
   return (
-    <ListItem key={meeting.id}>
-      <ListItemText
-        primary={`${startedAt} - ${endedAt}`}
-        secondary={
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography>{meeting.agenda}</Typography>
-
-              <AvatarGroup max={5}>
-                {meeting.guests.map((guest) => (
-                  <Avatar
-                    sx={{
-                      height: 32,
-                      width: 32,
-                      backgroundColor: stringToColor(guest.name),
-                    }}
-                    alt={guest.name}
-                  >
-                    {guest.name[0]}
-                  </Avatar>
-                ))}
-              </AvatarGroup>
-            </Box>
-
-            <Divider sx={{ mt: 2 }} />
-          </>
+    <>
+      <ListItem
+        key={meeting.id}
+        secondaryAction={
+          <AvatarGroup max={5}>
+            {meeting.guests.map((guest) => (
+              <Avatar
+                key={guest.id}
+                sx={{
+                  height: 32,
+                  width: 32,
+                  backgroundColor: stringToColor(guest.name),
+                }}
+                alt={guest.name}
+              >
+                {guest.name[0]}
+              </Avatar>
+            ))}
+          </AvatarGroup>
         }
-      />
-    </ListItem>
+      >
+        <ListItemText
+          primary={`${startedAt} - ${endedAt}`}
+          secondary={meeting.agenda}
+        />
+      </ListItem>
+
+      <Divider variant="middle" sx={{ mt: 2 }} />
+    </>
   );
 }

@@ -1,14 +1,8 @@
-import {
-  AccessTimeFilled,
-  Add,
-  CalendarToday,
-  Public,
-} from "@mui/icons-material";
+import { AccessTimeFilled, CalendarToday, Public } from "@mui/icons-material";
 import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogContentText,
   TextField,
   DialogActions,
   Button,
@@ -18,7 +12,11 @@ import {
   Typography,
 } from "@mui/material";
 import dayjs from "dayjs";
-import MeetingInfo from "./MeetingInfo";
+import { useState } from "react";
+import IAddGuest from "../../../../interfaces/addGuest.interface";
+import InvitedGuests from "../InvitedGuests";
+import MeetingInfo from "../MeetingInfo";
+import GuestForm from "./GuestForm";
 
 interface Props {
   open: boolean;
@@ -26,8 +24,19 @@ interface Props {
 }
 
 export default function ScheduleMeetingDialog({ open, handleClose }: Props) {
+  const [guests, setGuests] = useState<IAddGuest[]>([]);
+  const [agenda, setAgenda] = useState("");
+
+  const addGuest = (guest: IAddGuest) => setGuests([...guests, guest]);
+  const removeGuest = (idx: number) => {
+    const updatedGuests = [...guests];
+    updatedGuests.splice(idx, 1);
+
+    setGuests(updatedGuests);
+  };
+
   const startsAt = dayjs().format("h:mm a");
-  const endsAt = dayjs().add(15, "m").format("h:mm a, dddd, MMMM d, YYYY");
+  const endsAt = dayjs().add(15, "m").format("h:mm a, dddd, MMMM D, YYYY");
 
   return (
     <Dialog open={open} onClose={handleClose} maxWidth="lg">
@@ -58,39 +67,11 @@ export default function ScheduleMeetingDialog({ open, handleClose }: Props) {
           </Grid>
 
           <Grid item xs={12} md={6}>
-            <Box>
-              <TextField
-                margin="dense"
-                id="name"
-                label="Name"
-                type="text"
-                fullWidth
-                required
-                variant="outlined"
-              />
-              <TextField
-                margin="dense"
-                id="email"
-                label="Email"
-                type="email"
-                fullWidth
-                required
-                variant="outlined"
-              />
+            {guests.length > 0 && (
+              <InvitedGuests guests={guests} removeGuest={removeGuest} />
+            )}
 
-              <Box
-                sx={{
-                  mt: 1,
-                  width: "100%",
-                  display: "flex",
-                  flexDirection: "row-reverse",
-                }}
-              >
-                <Button variant="outlined" startIcon={<Add />} size="small">
-                  Add Guests
-                </Button>
-              </Box>
-            </Box>
+            <GuestForm addGuest={addGuest} />
 
             <Divider sx={{ my: 2 }} />
 
@@ -103,13 +84,21 @@ export default function ScheduleMeetingDialog({ open, handleClose }: Props) {
               rows={3}
               fullWidth
               variant="outlined"
+              value={agenda}
+              onChange={(e) => setAgenda(e.target.value)}
             />
           </Grid>
         </Grid>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Schedule</Button>
+        <Button
+          variant="contained"
+          disabled={guests.length === 0 && true}
+          onClick={handleClose}
+        >
+          Schedule
+        </Button>
       </DialogActions>
     </Dialog>
   );

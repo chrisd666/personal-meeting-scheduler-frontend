@@ -193,7 +193,7 @@ export default function HomePage() {
           </Button>
         </Box>
 
-        <Divider sx={{ my: 2 }} />
+        <Divider sx={{ mt: 2 }} />
 
         <MeetingList meetings={data} />
       </Box>

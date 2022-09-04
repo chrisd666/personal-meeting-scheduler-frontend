@@ -22,7 +22,7 @@ export default function MeetingList({ meetings }: Props) {
   return (
     <List>
       {meetings.map((meeting) => {
-        return <MeetingListItem meeting={meeting} />;
+        return <MeetingListItem key={meeting.id} meeting={meeting} />;
       })}
     </List>
   );
