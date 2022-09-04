@@ -4,7 +4,7 @@ import { Box } from "@mui/system";
 export default function MeetingLoadingSkeleton() {
   const rows = [];
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     rows.push(
       <Box
         key={i}
@@ -15,7 +15,7 @@ export default function MeetingLoadingSkeleton() {
         <Skeleton
           variant="rectangular"
           height={20}
-          sx={{ mb: 1, maxWidth: "90%" }}
+          sx={{ mt: 2, mb: 1, maxWidth: "90%" }}
         />
         <Skeleton
           variant="rectangular"

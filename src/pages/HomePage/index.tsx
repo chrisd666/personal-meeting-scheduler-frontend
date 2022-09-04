@@ -61,7 +61,7 @@ export default function HomePage() {
         {isLoading ? (
           <MeetingLoadingSkeleton />
         ) : (
-          <MeetingList meetings={data} />
+          <MeetingList meetings={data || []} />
         )}
       </Box>
 
