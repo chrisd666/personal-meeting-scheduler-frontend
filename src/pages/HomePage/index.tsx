@@ -82,7 +82,7 @@ export default function HomePage() {
       <Toast
         isOpen={isErrorToastOpen}
         severity="error"
-        message="You have scheduled a meeting!"
+        message="Something went wrong"
         handleClose={handleCloseErrorToast}
       />
     </Layout>
