@@ -1,5 +1,5 @@
 const config = {
-  serverUrl: "http://localhost:3000",
+  serverUrl: "https://chrisd.tech",
 };
 
 export default config;
